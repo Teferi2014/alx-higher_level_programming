@@ -1,16 +1,11 @@
 #!/usr/bin/python3
 def print_matrix_integer(matrix=[[]]):
-    tam = len(matrix[0])
-    if tam is 0:
+    for i in matrix:
+        l = 1
+        for j in i:
+            if l == len(i):
+                print("{:d}".format(j), end="")
+            else:
+                print("{:d}".format(j), end=" ")
+            l = l + 1
         print()
-    else:
-        tam = len(matrix[0])
-        cont = 0
-        for int in matrix:
-            for int2 in int:
-                cont += 1
-                if cont == tam:
-                    print("{:d}".format(int2), end="\n")
-                else:
-                    print("{:d} ".format(int2), end="")
-            cont = 0
