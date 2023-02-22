@@ -1,61 +1,77 @@
 #!/usr/bin/python3
-"""Coordinates of a square"""
+"""Square module.
+This module contains a class that defines a square and its size and its
+position on the screen, checking if the given values are right, and a setter
+and getter methods to set or get them. A __str__ method is here to handle the
+use of the builtin print function. There's also an area method that returns
+the area of the square, another one that handles the print of the square.
+"""
 
 
-class Square:
-    """Private instance attribute: size
-    Instantiation with area and position method """
+class Square():
+    """Defines a square."""
 
     def __init__(self, size=0, position=(0, 0)):
-        """Initializes attribute size """
+        """Sets the necessary attributes for the Square object.
+        Args:
+            size (int): the size of one edge of the square.
+            position (tuple): the coordinates of the square.
+        """
         self.size = size
         self.position = position
 
-    def area(self):
-        """Calculate area of square"""
-        return (self.__size * self.__size)
+    def __str__(self):
+        """Sets the print behavior of the Square object."""
+        square_str = ""
+
+        if self.__size > 0:
+            for y in range(self.__position[1]):
+                square_str += '\n'
+            for x in range(self.__size):
+                square_str += ' ' * self.__position[0]
+                square_str += '#' * self.__size + '\n'
+
+        return square_str[:-1]
 
     @property
     def size(self):
-        """Getter for square"""
+        """Get or set the size of the square."""
         return self.__size
 
     @size.setter
     def size(self, value):
-        """Initializes attribute size """
-        if (type(value) is not int):
+        if type(value) is int:
+            if value >= 0:
+                self.__size = value
+            else:
+                raise ValueError("size must be >= 0")
+        else:
             raise TypeError("size must be an integer")
-        if value < 0:
-            raise ValueError("size must be >= 0")
-        self.__size = value
 
     @property
     def position(self):
-        """Getter for position"""
+        """Get or set the position of the square."""
         return self.__position
 
     @position.setter
     def position(self, value):
-        """Initializes attribute position"""
-        if len(value) is not 2:
+        if type(value) is tuple and len(value) is 2 and \
+                type(value[0]) is int and type(value[1]) is int:
+            self.__position = value
+        else:
             raise TypeError("position must be a tuple of 2 positive integers")
-        if (type(value[0]) is not int or value[0] < 0):
-            raise TypeError("position must be a tuple of 2 positive integers")
-        if (type(value[1]) is not int or value[1] < 0):
-            raise TypeError("position must be a tuple of 2 positive integers")
-        self.__position = value
+
+    def area(self):
+        """Returns the current square area."""
+        return self.__size ** 2
 
     def my_print(self):
-        """Print method"""
-        print(self.__str__())
-
-    def __str__(self):
-        """Print representation of squares"""
-        if self.size == 0:
-            return
+        """Prints the square with the # character on stdout."""
+        if self.__size > 0:
+            for y in range(self.__position[1]):
+                print()
+            for x in range(self.__size):
+                print(' ' * self.__position[0], end='')
+                print('#' * self.__size)
         else:
-            str = '\n' * self.__position[1]
-        for i in range(self.__size):
-            str += ' ' * self.position[0]
-            str += '#' * self.__size + '\n'
-        return str[:-1]
+            print()
