@@ -1,19 +1,17 @@
 #!/usr/bin/node
+// create class `Square` which inherits from `Rectangle`; adds charPrint method
+const SquareBase = require('./5-square');
 
-// Print function with custom characters to represent the Square
-
-const OldSquare = require('./5-square');
-
-module.exports = class Square extends OldSquare {
+class Square extends SquareBase {
   constructor (size) {
     super(size, size);
   }
 
-  double () {
-    super.double();
-  }
-
   charPrint (c = 'X') {
-    super.print(c);
+    for (let i = 0; i < this.width; i++) {
+      console.log(c.repeat(this.width));
+    }
   }
-};
+}
+
+module.exports = Square;

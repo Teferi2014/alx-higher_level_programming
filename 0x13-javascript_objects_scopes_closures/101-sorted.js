@@ -1,11 +1,13 @@
 #!/usr/bin/node
-const oldDict = require('./101-data').dict;
-const newDict = {};
-for (const val in oldDict) {
-  if (oldDict[val] in newDict) {
-    newDict[oldDict[val]].push(val);
+// import dict from data file; creates+prints new dict {frequency: list of ids}
+const dict = require('./101-data').dict;
+
+const sortByFrequency = {};
+for (const key in dict) {
+  if (dict[key] in sortByFrequency) {
+    sortByFrequency[dict[key]].push(key);
   } else {
-    newDict[oldDict[val]] = [val];
+    sortByFrequency[dict[key]] = [key];
   }
 }
-console.log(newDict);
+console.log(sortByFrequency);
